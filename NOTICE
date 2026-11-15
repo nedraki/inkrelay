@@ -1,0 +1,27 @@
+InkRelay
+Copyright (C) 2026 InkRelay contributors
+
+Original InkRelay source is proposed for release under GNU GPL version 3 only.
+See LICENSE and docs/licensing.md. No personal name, email address or device
+identity is required for this notice. Confirm public authorship and licensing
+before the first publication.
+
+NeoLAB Convergence, Inc. is acknowledged for the publicly available Neo smartpen
+SDKs and Ncode documentation used as protocol and paper-format references.
+The upstream UWP SDK identifies Copyright (C) 2017 NeoLAB Convergence, Inc.
+The Web SDK identifies Copyright (C) 2026 NeoLAB Convergence, Inc.
+These references retain their original terms; this project does not replace
+or grant rights to vendor firmware, SDKs, paper catalogs, Ncode patterns, or
+model weights. Consult docs/licensing.md for the upstream licence ambiguity.
+
+The repository contains no vendor SDK runtime dependency or vendor notebook
+catalog download. Synthetic test metadata is original test input. Measured
+paper references describe product geometry, not personal handwriting.
+
+Neo, Ncode, LAMY, Moleskine, Excalidraw and Obsidian names identify compatible
+products or integrations. No affiliation, certification or endorsement is
+claimed. Third-party software and font notices remain applicable; see
+THIRD_PARTY_NOTICES.md and licenses/.
+
+Users retain their rights in their own notes and exports. Those files are not
+licensed or published by sharing this repository.

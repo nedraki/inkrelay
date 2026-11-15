@@ -1,0 +1,149 @@
+{
+  "schema_version": "smartpen.action_zones.v1",
+  "zones": [
+    {
+      "zoneId": "color-black",
+      "label": "Black",
+      "pageScope": "all_pages",
+      "bounds": { "x": 0, "y": 0, "width": 120, "height": 80 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#111111" } }
+    },
+    {
+      "zoneId": "color-red",
+      "label": "Red",
+      "pageScope": "all_pages",
+      "bounds": { "x": 120, "y": 0, "width": 120, "height": 80 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#d11a2a" } }
+    },
+    {
+      "zoneId": "wide-stroke",
+      "label": "Wide",
+      "pageScope": "all_pages",
+      "bounds": { "x": 240, "y": 0, "width": 120, "height": 80 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_width", "payload": { "width": 5 } }
+    },
+    {
+      "zoneId": "important",
+      "label": "Important",
+      "pageScope": "all_pages",
+      "bounds": { "x": 0, "y": 1900, "width": 160, "height": 120 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "mark_important", "payload": {} }
+    },
+    {
+      "zoneId": "ai-summarize-stub",
+      "label": "AI Summarize",
+      "pageScope": "all_pages",
+      "bounds": { "x": 160, "y": 1900, "width": 160, "height": 120 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "ai_stub", "payload": { "futureAction": "summarize" } }
+    },
+    {
+      "zoneId": "lamy-controller-line-fine",
+      "label": "Fine",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 85, "y": 445, "width": 35, "height": 35 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_width", "payload": { "width": 1 } }
+    },
+    {
+      "zoneId": "lamy-controller-line-medium",
+      "label": "Medium",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 85, "y": 515, "width": 35, "height": 35 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_width", "payload": { "width": 2 } }
+    },
+    {
+      "zoneId": "lamy-controller-line-wide",
+      "label": "Wide",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 85, "y": 590, "width": 35, "height": 35 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_width", "payload": { "width": 5 } }
+    },
+    {
+      "zoneId": "lamy-controller-white",
+      "label": "White",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 145, "y": 420, "width": 35, "height": 38 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#f2f2f2" } }
+    },
+    {
+      "zoneId": "lamy-controller-red",
+      "label": "Red",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 190, "y": 420, "width": 35, "height": 38 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#e53935" } }
+    },
+    {
+      "zoneId": "lamy-controller-black",
+      "label": "Black",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 145, "y": 468, "width": 35, "height": 36 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#222222" } }
+    },
+    {
+      "zoneId": "lamy-controller-cyan",
+      "label": "Cyan",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 190, "y": 468, "width": 35, "height": 36 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#249bd3" } }
+    },
+    {
+      "zoneId": "lamy-controller-gray",
+      "label": "Gray",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 145, "y": 514, "width": 35, "height": 38 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#bdbdbd" } }
+    },
+    {
+      "zoneId": "lamy-controller-green",
+      "label": "Green",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 190, "y": 514, "width": 35, "height": 38 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#59a14f" } }
+    },
+    {
+      "zoneId": "lamy-controller-yellow",
+      "label": "Yellow",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 145, "y": 560, "width": 35, "height": 39 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#f2c12e" } }
+    },
+    {
+      "zoneId": "lamy-controller-magenta",
+      "label": "Magenta",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 190, "y": 560, "width": 35, "height": 39 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#b33b8f" } }
+    },
+    {
+      "zoneId": "lamy-controller-orange",
+      "label": "Orange",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 145, "y": 607, "width": 35, "height": 39 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#f47b20" } }
+    },
+    {
+      "zoneId": "lamy-controller-blue",
+      "label": "Blue",
+      "pageScope": { "notebookId": "NEO_3_1013_1", "pageIds": [11] },
+      "bounds": { "x": 190, "y": 607, "width": 35, "height": 39 },
+      "maxStrokeLength": 80,
+      "action": { "kind": "set_color", "payload": { "color": "#3f5fab" } }
+    }
+  ]
+}

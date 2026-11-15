@@ -1,0 +1,6 @@
+services:
+  language-model:
+    image: ollama/ollama:rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri

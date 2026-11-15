@@ -1,0 +1,10 @@
+services:
+  language-worker:
+    # A forwarded port bound to workstation loopback is not reachable through
+    # Docker's bridge gateway. Host networking lets only this worker use the
+    # same 127.0.0.1 namespace as the SSH/Codex port forward.
+    network_mode: host
+    # Preserve InkRelay's loopback-only boundary while using the host network.
+    command: ["uv", "run", "--frozen", "--no-dev", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8321"]
+    ports: !reset []
+    extra_hosts: !reset []

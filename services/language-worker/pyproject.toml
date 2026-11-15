@@ -1,0 +1,21 @@
+[project]
+name = "inkrelay-language-worker"
+version = "0.1.0"
+description = "Local multimodal language-review worker for InkRelay"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "httpx>=0.28,<1",
+  "pillow>=11.3,<13",
+  "pydantic>=2.11,<3",
+  "uvicorn>=0.35,<1",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4,<10",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

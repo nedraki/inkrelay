@@ -1,0 +1,9 @@
+[project]
+name = "inkrelay-example-worker"
+version = "0.1.0"
+description = "Minimal example of the generic InkRelay Python workflow boundary"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "uvicorn>=0.35,<1",
+]

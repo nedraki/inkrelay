@@ -1,0 +1,31 @@
+services:
+  language-model:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - inkrelay_ollama_models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  language-worker:
+    build:
+      context: ./services/language-worker
+    restart: unless-stopped
+    # Model selection is deliberately isolated from the backend's `.env`.
+    # Copy exactly one config/language/*.env.example profile to `.env.language`.
+    env_file:
+      - path: .env.language
+        required: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8321:8321"
+
+volumes:
+  inkrelay_ollama_models:
+    name: inkrelay_ollama_models

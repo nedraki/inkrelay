@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nproj>
+<!-- Synthetic geometry for tests, not an actual Neo product. Margins follow
+     NoteServer.extractMarginInfo's left,top,right,bottom interpretation. -->
+<nproj version="2.31">
+  <book><title>Synthetic &amp; asymmetric</title><section>3</section><owner>27</owner><code>8000</code><revision>1</revision><start_page side="">1</start_page>
+    <segment_info ncode_start_page="5" ncode_end_page="6"/>
+  </book>
+  <pages count="2">
+    <page_item number="0" rotate_angle="0" x1="10" y1="20" x2="94" y2="180" crop_margin="3,7,9,9"/>
+    <page_item number="1" rotate_angle="0" x1="0" y1="0" x2="144" y2="72" crop_margin="0,0,0,0"/>
+  </pages>
+  <symbols><symbol><command action="webview" param="https://example.invalid/never-fetch"/></symbol></symbols>
+</nproj>

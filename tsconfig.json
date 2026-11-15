@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@inkrelay/core": ["packages/core/src/index.ts"],
+      "@inkrelay/action-router": ["packages/action-router/src/index.ts"],
+      "@inkrelay/render-svg": ["packages/render-svg/src/index.ts"],
+      "@inkrelay/render-excalidraw": ["packages/render-excalidraw/src/index.ts"],
+      "@inkrelay/obsidian-writer": ["packages/obsidian-writer/src/index.ts"],
+      "@inkrelay/adapters": ["packages/adapters/src/index.ts"],
+      "@inkrelay/workflows": ["packages/workflows/src/index.ts"]
+    }
+  },
+  "include": ["apps/**/*.ts", "apps/**/*.tsx", "packages/**/*.ts", "tests/**/*.ts", "vitest.config.ts"]
+}
