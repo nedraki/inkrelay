@@ -2,6 +2,21 @@
 
 **Local first. Your notes and notebooks, on your computer.**
 
+## On this page
+
+- [What you can do](#what-you-can-do)
+- [Computer and pen compatibility](#will-it-work-with-my-computer-and-pen)
+- [Get started with an AI assistant](#get-started-with-an-ai-assistant)
+- [Run the setup yourself](#prefer-to-run-the-setup-yourself)
+- [Configure your `.env` file](#configure-your-env-file)
+- [Bring in your first notebook](#bring-in-your-first-notebook)
+- [Find your way around](#find-your-way-around)
+- [A quick tour with pictures](#a-quick-tour-with-pictures)
+- [Your notes and privacy](#your-notes-and-privacy)
+- [Optional language teacher](#optional-language-teacher)
+- [Troubleshooting](#when-something-goes-wrong)
+- [Licence and credits](#licence-and-credits)
+
 InkRelay is a **local-first** Neolab's smartpen companion. Your notes are stored on your own computer: **no cloud storage or online account is needed to keep your notes**. Bring in writing saved inside the pen, watch writing arrive live, revisit a page, turn a sketch into an editable diagram, or send a copy to Obsidian. You can keep writing in a physical notebook without organizing everything on a screen first.
 
 **Project status: in development.** Beta tested on Mac and Linux. Features and device support are still evolving. This community project currently needs an initial setup with development tools; there is no one-click installer yet. You do not need to be a programmer if an AI assistant can help with that setup.
@@ -89,6 +104,53 @@ pnpm start
 Open [InkRelay on this computer](http://127.0.0.1:4317). Keep the terminal running while using the app. To stop it, press **Ctrl+C** in that terminal. Next time, open the same folder and run `pnpm start`; rebuild after source updates. Mac users may need to allow the Bluetooth permission prompt. See [Mac setup](docs/macos-hardware.md) or [Linux setup](docs/neo-linux-hardware.md).
 
 For development, `pnpm dev` opens the interface at [localhost:4318](http://127.0.0.1:4318), with the server on port 4317. To explore without a pen, set `INKRELAY_BLUETOOTH_ENABLED=false` in your local `.env` before starting. Ask your assistant to load synthetic demo input into a separate demo data folder, without mixing it into your real notebooks.
+
+## Configure your `.env` file
+
+The `.env` file holds settings for your own installation. It belongs in the **main InkRelay folder**, next to `README.md` and `package.json`, not inside `apps/`, `config/` or your Obsidian vault. Start InkRelay from that main folder so it finds the file and your saved data correctly.
+
+```text
+inkrelay/
+├── .env.example     ← shared template
+├── .env             ← your private settings; create this locally
+├── README.md
+├── package.json
+├── apps/
+└── ...
+```
+
+**Create it once:** copy [`.env.example`](.env.example) in the same folder and name the copy exactly **`.env`**, without a `.txt` extension. On Mac or Linux, you can run `cp .env.example .env` from the main folder. If `.env` already exists, edit that file instead of replacing it.
+
+Files starting with a dot may be hidden in your file manager. On Mac, press **Command + Shift + .** in Finder to show hidden files. You can also ask your AI assistant or code editor to open the `.env` file in the project root. Edit it as plain text, with one `SETTING=value` per line; lines starting with `#` are comments.
+
+The supplied defaults are enough to try the app. These are the main settings you may want to adjust:
+
+| Setting | What to put there |
+| --- | --- |
+| `OBSIDIAN_VAULT_PATH` | The full folder path of the Obsidian vault receiving exports. The default `./tmp/demo-vault` is a demonstration export folder. |
+| `INKRELAY_BLUETOOTH_ENABLED` | Keep `true` for pen capture; use `false` to explore the interface without initializing Bluetooth. |
+| `INKRELAY_HOST` | Keep `127.0.0.1` so InkRelay listens only on your own computer. |
+| `INKRELAY_PORT` | Normally `4317`; this is the port used by `pnpm start`. |
+| `INKRELAY_DATA_PATH` | Keep `./tmp/inkrelay-data/raw` for the default captured-note storage. Changing it later points the app at a different corpus; it does not move existing notes. |
+
+For example, replace the vault setting with your own existing folder path. Quotes keep a path containing spaces together:
+
+```dotenv
+OBSIDIAN_VAULT_PATH="/path/to/My Obsidian Vault"
+INKRELAY_BLUETOOTH_ENABLED=true
+INKRELAY_HOST=127.0.0.1
+INKRELAY_PORT=4317
+```
+
+The vault path above is a placeholder. Ask your assistant to help find your actual vault if needed. Keep the remaining settings from `.env.example`, including the paper-profile and notebook metadata paths, unless you are deliberately changing the storage layout.
+
+**Save the file and restart InkRelay** after editing it. For a built run, stop the terminal process with **Ctrl+C**, then run `pnpm start` again. You do not need to rebuild for `.env` changes. Environment variables already set in your terminal take precedence over values in the file.
+
+You can also choose a vault from **Session → Obsidian vault**. That saved choice takes precedence over `OBSIDIAN_VAULT_PATH`, including after restart. Use that control again if changing the file appears not to change the export destination.
+
+**Optional AI has a separate file:** `.env.language`, also at the project root, configures the language worker's model endpoint and any provider credentials. It is needed only for Teacher notes; follow [the language-teacher guide](docs/language-teacher.md) to create it from a profile under `config/language/`. Changing `.env` does not configure the model, and changing `.env.language` requires recreating the worker as described in that guide.
+
+Keep `.env` and `.env.language` private. They are ignored by Git and can contain personal paths or API keys. Share the example templates when asking for help, with any sensitive values removed from diagnostic output.
 
 ## Bring in your first notebook
 

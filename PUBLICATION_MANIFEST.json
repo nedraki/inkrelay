@@ -39,8 +39,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 19529,
-      "sha256": "b0f19cf804d3c846dbec5e235fd808c7f5f442ce05be6e7da0e0118fdd695a35"
+      "bytes": 23874,
+      "sha256": "52dc60808653d373ca76bc9c4d1c09f2069d5251e4ceb1cc63c391adc778f912"
     },
     {
       "path": "SECURITY.md",
@@ -163,26 +163,6 @@
       "sha256": "1024a0fa675ca1ff6a13a6c20f239ccd41b391dc86a66ce25ecbb46ff49491dd"
     },
     {
-      "path": "docker-compose.language.amd.yml",
-      "bytes": 105,
-      "sha256": "e0a577959310fd921bba44834ededf85156192ffdc9239b558f131004b7bda83"
-    },
-    {
-      "path": "docker-compose.language.forwarded.yml",
-      "bytes": 515,
-      "sha256": "789418baf5a27340c60c25a3bc6d75788b845217eef04a5016f69be694974e8f"
-    },
-    {
-      "path": "docker-compose.language.nvidia.yml",
-      "bytes": 42,
-      "sha256": "421e33c3df9ec833bef75d00cd81bf448e79124c6cb166a76dcf9cfe8b1b813a"
-    },
-    {
-      "path": "docker-compose.language.yml",
-      "bytes": 792,
-      "sha256": "78d228a97664e7f1bc5337b79b1b9d73ac46d8b2c392487cab2d907077f191d5"
-    },
-    {
       "path": "docs/architecture.md",
       "bytes": 17867,
       "sha256": "8c73288b55f844ec84e80f2333e6a128af4ee1865630bafa4d7935442f234a6c"
@@ -194,8 +174,8 @@
     },
     {
       "path": "docs/development.md",
-      "bytes": 22575,
-      "sha256": "1f8e33eeadcd74d3132cc3cb8b27e619bbdfcd31ffc25180665afce03234e29e"
+      "bytes": 23710,
+      "sha256": "2c1eb2a78017c9bb7cc60dc46d90f0a1b0999a63920a09d7371c8e1eab0d23b9"
     },
     {
       "path": "docs/images/01-original.jpg",
@@ -254,8 +234,8 @@
     },
     {
       "path": "docs/language-teacher.md",
-      "bytes": 25907,
-      "sha256": "a7cb5bd4e5971ab05de08eb1d1c37280cee2b66079e5e4600029b66a6feb2e34"
+      "bytes": 26775,
+      "sha256": "7f97b3966d65e54a88abcafc378bbdca210c0434066fe182136868dbfb771e12"
     },
     {
       "path": "docs/licensing.md",
@@ -326,6 +306,31 @@
       "path": "fixtures/synthetic-paper.nproj",
       "bytes": 812,
       "sha256": "f5c03debf5d606954cf9e463f05798d79707c8971d076f624dd01dab17fa5f1b"
+    },
+    {
+      "path": "infra/compose/README.md",
+      "bytes": 2120,
+      "sha256": "d9cae45f680255128e50e855e15681738da05cb24d2904cd27fb0364ecd8ea50"
+    },
+    {
+      "path": "infra/compose/language.amd.yml",
+      "bytes": 105,
+      "sha256": "e0a577959310fd921bba44834ededf85156192ffdc9239b558f131004b7bda83"
+    },
+    {
+      "path": "infra/compose/language.forwarded.yml",
+      "bytes": 515,
+      "sha256": "789418baf5a27340c60c25a3bc6d75788b845217eef04a5016f69be694974e8f"
+    },
+    {
+      "path": "infra/compose/language.nvidia.yml",
+      "bytes": 42,
+      "sha256": "421e33c3df9ec833bef75d00cd81bf448e79124c6cb166a76dcf9cfe8b1b813a"
+    },
+    {
+      "path": "infra/compose/language.yml",
+      "bytes": 792,
+      "sha256": "78d228a97664e7f1bc5337b79b1b9d73ac46d8b2c392487cab2d907077f191d5"
     },
     {
       "path": "licenses/excalidraw-LICENSE.txt",
@@ -534,8 +539,8 @@
     },
     {
       "path": "scripts/prepare-publication.mjs",
-      "bytes": 4717,
-      "sha256": "ce9044c21c07b23dab53208bd12764dfa7e87e31117157e486c1f2e74dc41e2e"
+      "bytes": 4841,
+      "sha256": "3080355b9c378a2942ac6680ec32cae0de99ca4156e140d53508fbe7bbaf705a"
     },
     {
       "path": "scripts/publication-policy.d.mts",
@@ -544,8 +549,8 @@
     },
     {
       "path": "scripts/publication-policy.mjs",
-      "bytes": 7085,
-      "sha256": "491446ed098bbc3e7e2c4658ead24b76ae1d621f62c4d52616316f5b93d488f2"
+      "bytes": 7135,
+      "sha256": "2f3e75c69d59e54260696f9996781c1dcbae5c1ddf149f8a231bad7180c15e03"
     },
     {
       "path": "services/language-worker/.dockerignore",
@@ -674,8 +679,8 @@
     },
     {
       "path": "tests/publication.test.ts",
-      "bytes": 6337,
-      "sha256": "25178d7eaf3ce1e23d102d6eb425df954fd9b1b46421c57a82029dccce5d6c2b"
+      "bytes": 7086,
+      "sha256": "2c93a75535e8ccb0efb99b45a436395f324d011d7d611f5af3b55a2708b0b7b8"
     },
     {
       "path": "tests/replay.test.ts",

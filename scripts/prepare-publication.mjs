@@ -22,7 +22,8 @@ const git = (...command) => execFileSync("git", ["-C", root, ...command], {encod
 let candidates;
 try { candidates = git("ls-files", "--cached", "--others", "--exclude-standard", "-z").split("\0").filter(Boolean); }
 catch { throw new Error("Run the exporter from the original development checkout; do not initialize or publish the snapshot automatically"); }
-candidates = [...new Set(candidates)].sort();
+const deleted = new Set(git("ls-files", "--deleted", "-z").split("\0").filter(Boolean));
+candidates = [...new Set(candidates)].filter(path => !deleted.has(path)).sort();
 const tracked = new Set(git("ls-files", "-z").split("\0").filter(Boolean));
 // A local marker list can name sensitive identifiers without putting them into
 // shared scanner source. This file is ignored and is never copied to output.

@@ -2,6 +2,24 @@
 
 This guide covers a clean local setup, real-pen preparation, configuration, verification, and common failures.
 
+## Repository layout
+
+| Folder | Responsibility |
+| --- | --- |
+| `apps/` | TypeScript server and browser interface |
+| `packages/` | Shared domain, adapters, storage and projection libraries |
+| `services/` | Python workers and their service-specific Dockerfiles |
+| `infra/compose/` | Docker Compose base configuration and hardware/network overrides |
+| `config/` | Shared configuration and safe environment templates |
+| `native/` | Platform-specific Bluetooth helpers |
+| `tests/`, `fixtures/` | Automated tests and synthetic inputs |
+| `scripts/` | Build, attribution and source-publication tooling |
+| `docs/`, `skills/` | User/developer documentation and agent setup guidance |
+| `licenses/` | Third-party inventories and notices |
+| `tmp/` | Ignored local runtime data; persistent notes must be backed up |
+
+Workspace manifests, package locks, TypeScript/test configuration, `.env.example` and repository-level guidance remain at the root. Active `.env` and `.env.language` files remain private there. See [container configuration](../infra/compose/README.md) for Compose commands and migration from the old root-level files.
+
 ## Prerequisites
 
 - Node.js 22.19 or newer

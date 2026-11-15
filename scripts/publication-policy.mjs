@@ -72,7 +72,8 @@ export function isPublicSource(path) {
   if (/\.(?:jsonl|nproj|excalidraw|sqlite\w*|db|png|jpe?g|pdf|zip|pem|key)$/i.test(path)) return false;
   if (/^(?:paper-profiles|paper-definitions|notebook-instances|settings)\.json$/.test(posix.basename(path))) return false;
   if (/^(?:credentials|service-account).*\.json$/i.test(posix.basename(path))) return false;
-  if (rootFiles.has(path) || /^docker-compose\.language(?:\.[a-z]+)?\.yml$/.test(path)) return true;
+  if (rootFiles.has(path)) return true;
+  if (/^infra\/compose\/(?:README\.md|language(?:\.(?:nvidia|amd|forwarded))?\.yml)$/.test(path)) return true;
   if (/^config\/language\/[a-z-]+\.env\.example$/.test(path)) return true;
   if (!/^(?:apps|packages|services|examples|docs|config|native\/macos|scripts|skills|tests|licenses|\.github)\//.test(path)) return false;
   if (/^(?:services|examples)\/[a-z-]+\/(?:Dockerfile|\.dockerignore)$/.test(path)) return true;

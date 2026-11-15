@@ -10,6 +10,10 @@ afterEach(async () => { for (const path of directories.splice(0)) await rm(path,
 
 describe("source publication privacy", () => {
   it("allows source and synthetic fixtures while excluding personal data", () => {
+    expect(isPublicSource("infra/compose/language.yml")).toBe(true);
+    expect(isPublicSource("infra/compose/language.nvidia.yml")).toBe(true);
+    expect(isPublicSource("infra/compose/.env.language")).toBe(false);
+    expect(isPublicSource("docker-compose.language.yml")).toBe(false);
     for (const path of ["README.md", "apps/web/src/main.tsx", "native/macos/Info.plist", "services/language-worker/Dockerfile", "fixtures/sample-session.events.jsonl"]) expect(isPublicSource(path)).toBe(true);
     for (const path of [".env", ".env.language", ".git/config", "tmp/inkrelay-data/raw/private.events.jsonl", "notes/private.md", "apps/web/notes/private.md", "apps/web/notes.jsonl", "config/settings.json", "config/credentials-local.json", "fixtures/my-notebook.nproj", "apps/web/dist/index.html", "screenshots/page.png", "../README.md"]) expect(isPublicSource(path)).toBe(false);
   });
@@ -81,6 +85,12 @@ describe("source publication privacy", () => {
     await symlink(resolve(root, ".env"), resolve(root, "scripts/linked.ts"));
     expect(run("--check").status).not.toBe(0);
     await rm(resolve(root, "scripts/linked.ts"));
+    execFileSync("git", ["-C", root, "add", "README.md"]);
+    await rm(resolve(root, "README.md"));
+    expect(run("--check").status).toBe(0);
+    expect(run("--output", ".publication-review/after-delete").status).toBe(0);
+    const afterDelete = JSON.parse(await readFile(resolve(root, ".publication-review/after-delete/PUBLICATION_MANIFEST.json"), "utf8"));
+    expect(afterDelete.files.some((file: {path: string}) => file.path === "README.md")).toBe(false);
     execFileSync("git", ["-C", root, "add", "-f", ".env"]);
     expect(run("--check").status).not.toBe(0);
   });

@@ -1,5 +1,7 @@
 # Local language teacher
 
+Container definitions live in `infra/compose/`. Run all commands below from the repository root; `--project-directory .` preserves the existing build paths, private environment-file location and Compose project identity. See [container layout and update notes](../infra/compose/README.md).
+
 The Language teacher tab reviews a selected handwritten page as a short essay. It directly sends a locally rendered image to a multimodal model, receives a faithful transcription plus grammar corrections, and lets the learner click each corrected phrase to see the rule and examples.
 
 This is an experimental teaching aid. Handwriting transcription and grammatical feedback can be wrong, especially with dense, cursive, faint, mixed-language, or poorly calibrated pages. InkRelay always preserves the source ink and labels the transcription as model-read content.
@@ -81,15 +83,15 @@ From the repository root, pull the container image and start Ollama first:
 ```bash
 cd /path/to/InkRelay
 cp config/language/ollama.env.example .env.language
-docker compose -f docker-compose.language.yml pull language-model
-docker compose -f docker-compose.language.yml up -d language-model
+docker compose --project-directory . -f infra/compose/language.yml pull language-model
+docker compose --project-directory . -f infra/compose/language.yml up -d language-model
 ```
 
 Pull Gemma into the running Ollama container:
 
 ```bash
-docker compose -f docker-compose.language.yml exec language-model ollama pull gemma3:4b
-docker compose -f docker-compose.language.yml exec language-model ollama list
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama pull gemma3:4b
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama list
 ```
 
 The pull downloads approximately 3.3 GB and can take several minutes. `ollama list` must show `gemma3:4b` before the worker can report ready. The download is stored in the named volume `inkrelay_ollama_models`, not in the disposable container layer.
@@ -97,8 +99,8 @@ The pull downloads approximately 3.3 GB and can take several minutes. `ollama li
 Build and start the InkRelay worker. Docker automatically pulls the worker's base image the first time it builds:
 
 ```bash
-docker compose -f docker-compose.language.yml up -d --build language-worker
-docker compose -f docker-compose.language.yml ps
+docker compose --project-directory . -f infra/compose/language.yml up -d --build language-worker
+docker compose --project-directory . -f infra/compose/language.yml ps
 ```
 
 Verify both layers:
@@ -124,9 +126,9 @@ Open <http://127.0.0.1:4318>, select a page, choose **Language teacher**, set th
 The NVIDIA override gives the Ollama container access to all configured GPUs:
 
 ```bash
-docker compose -f docker-compose.language.yml -f docker-compose.language.nvidia.yml up -d language-model
-docker compose -f docker-compose.language.yml -f docker-compose.language.nvidia.yml exec language-model ollama pull gemma3:4b
-docker compose -f docker-compose.language.yml -f docker-compose.language.nvidia.yml up -d --build language-worker
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.nvidia.yml up -d language-model
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.nvidia.yml exec language-model ollama pull gemma3:4b
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.nvidia.yml up -d --build language-worker
 ```
 
 If Docker rejects `gpus: all`, install/configure NVIDIA Container Toolkit and confirm this works before debugging InkRelay:
@@ -140,9 +142,9 @@ docker run --rm --gpus all nvidia/cuda:12.4.1-base-ubuntu22.04 nvidia-smi
 The AMD override selects Ollama's ROCm image and exposes the GPU devices:
 
 ```bash
-docker compose -f docker-compose.language.yml -f docker-compose.language.amd.yml up -d language-model
-docker compose -f docker-compose.language.yml -f docker-compose.language.amd.yml exec language-model ollama pull gemma3:4b
-docker compose -f docker-compose.language.yml -f docker-compose.language.amd.yml up -d --build language-worker
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.amd.yml up -d language-model
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.amd.yml exec language-model ollama pull gemma3:4b
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.amd.yml up -d --build language-worker
 ```
 
 Hardware support varies; use CPU mode if the model container cannot initialize ROCm.
@@ -154,7 +156,7 @@ The Compose project stores downloaded weights in the named volume `inkrelay_olla
 Stop the services while preserving models:
 
 ```bash
-docker compose -f docker-compose.language.yml down
+docker compose --project-directory . -f infra/compose/language.yml down
 ```
 
 Do not add `--volumes` unless you intentionally want to delete the downloaded model volume.
@@ -162,13 +164,13 @@ Do not add `--volumes` unless you intentionally want to delete the downloaded mo
 View logs:
 
 ```bash
-docker compose -f docker-compose.language.yml logs -f language-model language-worker
+docker compose --project-directory . -f infra/compose/language.yml logs -f language-model language-worker
 ```
 
 Rebuild only the worker after changing its Python source or dependencies:
 
 ```bash
-docker compose -f docker-compose.language.yml up -d --build language-worker
+docker compose --project-directory . -f infra/compose/language.yml up -d --build language-worker
 ```
 
 There is no need to pull Gemma again after rebuilding because the weights remain in `inkrelay_ollama_models`.
@@ -196,14 +198,14 @@ Do not put model settings in `.env`. Do not edit the tracked `*.env.example` tem
 
 | Use case | Profile to copy | Compose files | When to use it |
 | --- | --- | --- | --- |
-| Bundled Ollama | `config/language/ollama.env.example` | `docker-compose.language.yml` | Model runs in the included `language-model` container |
-| Forwarded vLLM | `config/language/vllm-forwarded.env.example` | base file plus `docker-compose.language.forwarded.yml` | vLLM is reachable only through workstation loopback, such as an SSH/editor port forward |
-| OpenAI cloud | `config/language/openai.env.example` | `docker-compose.language.yml` | Page images may leave the computer and are sent to the OpenAI API |
+| Bundled Ollama | `config/language/ollama.env.example` | `infra/compose/language.yml` | Model runs in the included `language-model` container |
+| Forwarded vLLM | `config/language/vllm-forwarded.env.example` | base file plus `infra/compose/language.forwarded.yml` | vLLM is reachable only through workstation loopback, such as an SSH/editor port forward |
+| OpenAI cloud | `config/language/openai.env.example` | `infra/compose/language.yml` | Page images may leave the computer and are sent to the OpenAI API |
 
 After changing `.env.language`, always recreate the worker; a restart alone retains the container's old environment:
 
 ```bash
-docker compose -f docker-compose.language.yml up -d --build --force-recreate --no-deps language-worker
+docker compose --project-directory . -f infra/compose/language.yml up -d --build --force-recreate --no-deps language-worker
 curl http://127.0.0.1:8321/health
 curl http://127.0.0.1:4317/api/language/status
 ```
@@ -216,10 +218,10 @@ Use this profile only when the model runs in the bundled Ollama container:
 
 ```bash
 cp config/language/ollama.env.example .env.language
-docker compose -f docker-compose.language.yml up -d --build language-model language-worker
+docker compose --project-directory . -f infra/compose/language.yml up -d --build language-model language-worker
 ```
 
-The profile uses `http://language-model:11434/v1`. That hostname is a Compose service name and is valid only on the normal Compose bridge network. Never combine this endpoint with `docker-compose.language.forwarded.yml`, whose host networking has no Compose DNS entry named `language-model`.
+The profile uses `http://language-model:11434/v1`. That hostname is a Compose service name and is valid only on the normal Compose bridge network. Never combine this endpoint with `infra/compose/language.forwarded.yml`, whose host networking has no Compose DNS entry named `language-model`.
 
 ### Another model in bundled Ollama
 
@@ -234,9 +236,9 @@ Replace `MODEL_NAME` with the exact tag from the Ollama library. Then pull that 
 
 ```bash
 cd /path/to/InkRelay
-docker compose -f docker-compose.language.yml exec language-model ollama pull MODEL_NAME
-docker compose -f docker-compose.language.yml exec language-model ollama list
-docker compose -f docker-compose.language.yml up -d --build --force-recreate language-worker
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama pull MODEL_NAME
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama list
+docker compose --project-directory . -f infra/compose/language.yml up -d --build --force-recreate language-worker
 ```
 
 Verify that the worker reports the newly selected tag:
@@ -249,7 +251,7 @@ curl http://127.0.0.1:4317/api/language/status
 Downloaded models can coexist in `inkrelay_ollama_models`; switching does not delete Gemma or previous review records. List the installed models with `ollama list`. Remove an unused model only when intentionally reclaiming disk space:
 
 ```bash
-docker compose -f docker-compose.language.yml exec language-model ollama rm MODEL_NAME
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama rm MODEL_NAME
 ```
 
 Reviews retain their original provenance. Model ID, provider, endpoint, and pipeline version now participate in review identity, so changing any of them creates a new append-only review for an otherwise unchanged page. Switching back reuses the earlier matching review.
@@ -265,7 +267,7 @@ For a normal same-host vLLM server listening on `0.0.0.0:8000`, copy the vLLM pr
 ```bash
 cp config/language/vllm-forwarded.env.example .env.language
 # Edit INKRELAY_LANGUAGE_MODEL and the API key if vLLM requires one.
-docker compose -f docker-compose.language.yml -f docker-compose.language.forwarded.yml \
+docker compose --project-directory . -f infra/compose/language.yml -f infra/compose/language.forwarded.yml \
   up -d --build --force-recreate --no-deps language-worker
 ```
 
@@ -302,7 +304,7 @@ Use this only when sending the rendered page image to the OpenAI API is acceptab
 ```bash
 cp config/language/openai.env.example .env.language
 # Edit .env.language: set the API key and an exact image-capable model ID.
-docker compose -f docker-compose.language.yml \
+docker compose --project-directory . -f infra/compose/language.yml \
   up -d --build --force-recreate --no-deps language-worker
 ```
 
@@ -332,7 +334,7 @@ sudo systemctl disable --now ollama
 This stops and disables automatic startup; it does not uninstall host Ollama or delete host model files. To restore it later, first stop the Docker stack, then re-enable the service:
 
 ```bash
-docker compose -f docker-compose.language.yml down
+docker compose --project-directory . -f infra/compose/language.yml down
 sudo systemctl enable --now ollama
 ```
 
@@ -341,15 +343,15 @@ sudo systemctl enable --now ollama
 Check the model library and logs:
 
 ```bash
-docker compose -f docker-compose.language.yml exec language-model ollama list
-docker compose -f docker-compose.language.yml logs --tail=100 language-model language-worker
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama list
+docker compose --project-directory . -f infra/compose/language.yml logs --tail=100 language-model language-worker
 ```
 
 If `gemma3:4b` is absent, pull it and restart the worker:
 
 ```bash
-docker compose -f docker-compose.language.yml exec language-model ollama pull gemma3:4b
-docker compose -f docker-compose.language.yml up -d --build language-worker
+docker compose --project-directory . -f infra/compose/language.yml exec language-model ollama pull gemma3:4b
+docker compose --project-directory . -f infra/compose/language.yml up -d --build language-worker
 ```
 
 ### Docker command requires permission
